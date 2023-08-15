@@ -4,14 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest --dir ./test"
+    "test": "vitest run --dir ./test"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/node": "^20.4.10",
     "typescript": "^5.1.6",
     "vitest": "^0.34.1"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3"
   }
 }

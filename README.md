@@ -1,4 +1,4 @@
-### Regras da aplicação
+# Regras da aplicação
 
 - [X] Deve ser possível criar um usuário
 - [] Deve ser possível identificar o usuário entre as requisições
