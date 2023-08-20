@@ -1,7 +1,6 @@
 import { FastifyInstance } from 'fastify'
+import { createUser } from './create-user'
 
 export async function userRoutes(app: FastifyInstance) {
-  app.get('/user', async function handler() {
-    return { hello: 'world' }
-  })
+  app.post('/user', createUser)
 }
