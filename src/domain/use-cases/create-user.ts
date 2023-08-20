@@ -1,28 +1,33 @@
-import { UserAlreadyExistsError } from "../../repositories/error/user-already-exists"
-import { UserRepository } from "../../repositories/user-repository"
-import { User } from "../entities/user"
+import { UserAlreadyExistsError } from './../../repositories/error/user-already-exists'
 import { hash } from 'bcryptjs'
-interface CreateUserUseCaseRequest{
-    name: string
-    email: string
-    password: string
+import { User } from '@prisma/client'
+import { UsersRepository } from '@/repositories/user-repository'
+interface CreateUseCaseRequest {
+  name: string
+  email: string
+  password: string
 }
-interface RegisterUseCaseResponse {
+interface CreateUseCaseResponse {
   user: User
 }
+export class CreateUserUseCase {
+  constructor(private usersRepository: UsersRepository) {}
 
-export class CreateUserUseCase{
-  constructor(private userRepository:UserRepository){}
-    async execute({name,email,password}:CreateUserUseCaseRequest):Promise<RegisterUseCaseResponse>{
-      const password_hash = await hash(password, 6)
-      const userWithSameEmail = await  this.userRepository.findByEmail(email)
-      if(userWithSameEmail) throw new UserAlreadyExistsError()
-      const user = User.create({
-        name,
-        email,
-        password_hash
-      })
-      this.userRepository.create(user)
-      return {user}
+  async execute({
+    name,
+    email,
+    password,
+  }: CreateUseCaseRequest): Promise<CreateUseCaseResponse> {
+    const password_hash = await hash(password, 6)
+    const userWithSameEmail = await this.usersRepository.findByEmail(email)
+    if (userWithSameEmail) {
+      throw new UserAlreadyExistsError()
     }
+    const user = await this.usersRepository.create({
+      name,
+      email,
+      password_hash,
+    })
+    return { user }
+  }
 }
