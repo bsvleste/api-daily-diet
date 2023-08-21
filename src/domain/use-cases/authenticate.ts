@@ -1,7 +1,7 @@
 import { compare } from 'bcryptjs'
-import { NotAllowedError } from '../../repositories/error/not-allowed'
 import { User } from '@prisma/client'
 import { UsersRepository } from '@/repositories/user-repository'
+import { NotAllowedError } from '../errors/not-allowed'
 
 interface AuthenticateUseCaseRequest {
   email: string

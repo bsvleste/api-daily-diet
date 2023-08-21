@@ -1,8 +1,8 @@
 import { AuthenticateUseCase } from '@/domain/use-cases/authenticate'
-import { InMemoryUserRepository } from './repositories/in-memory-user'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { hash } from 'bcryptjs'
-import { NotAllowedError } from '@/repositories/error/not-allowed'
+import { InMemoryUserRepository } from 'test/repositories/in-memory-user'
+import { NotAllowedError } from '@/domain/errors/not-allowed'
 
 let inMemoriUserRepository: InMemoryUserRepository
 let sut: AuthenticateUseCase
